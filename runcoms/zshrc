@@ -16,4 +16,10 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 # source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
+export PSQLINST=/Applications/Postgres.app/Contents/Versions/9.5/bin
 export GOPATH=$HOME/go 
+
+export PATH=$HOME/bin:$GOPATH/bin:$PATH:$PSQLINST
+source /Users/sands/.rvm/scripts/rvm 
+
+source ~/bin/energis.sh
