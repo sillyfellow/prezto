@@ -3,6 +3,7 @@
 #
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
+#   Sandeep Sadanandan <grep@whybenormal.org> 
 #
 
 # Source Prezto.
@@ -14,12 +15,138 @@ fi
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-# source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
+    
+#{{{ Options    
+export EDITOR="vim"       # only fools wouldn't do this ;-)   
+DISABLE_CORRECTION="true"   
+
+setopt APPEND_HISTORY         # Don't overwrite, append!    
+setopt AUTO_NAME_DIRS         # This will use named dirs when possible    
+setopt AUTO_PUSHD             # This makes cd=pushd   
+setopt EXTENDED_GLOB          # I don't know why I never set this before.   
+setopt EXTENDED_HISTORY       # Save the time and how long a command ran    
+setopt GLOB_COMPLETE          # If we have a glob this will expand it   
+setopt HIST_EXPIRE_DUPS_FIRST   
+setopt HIST_FIND_NO_DUPS    
+setopt HIST_IGNORE_ALL_DUPS   # Even if there are commands inbetween commands that are the same, still only save the last one   
+setopt HIST_IGNORE_DUPS       # If I type cd and then cd again, only save the last one    
+setopt HIST_NO_STORE    
+setopt HIST_REDUCE_BLANKS     # Pretty    Obvious.  Right?    
+setopt HIST_SAVE_NO_DUPS    
+setopt HIST_VERIFY            # When using a hist thing, make a newline show the change before executing it.    
+setopt MULTIOS                # Now we can pipe to multiple outputs!    
+setopt NO_BEEP                # beeps are annoying    
+setopt NO_CASE_GLOB           # Case insensitive globbing   
+#setopt NO_CLOBBER            # Keep echo "station" > station from clobbering station   
+setopt NOCORRECTALL           
+#setopt NO_FLOW_CONTROL       # If I could disable Ctrl-s completely I would!   
+setopt NO_HUP                 
+setopt NUMERIC_GLOB_SORT      # Be Reasonable!    
+setopt PUSHD_MINUS            
+setopt RC_EXPAND_PARAM        # hows about arrays be awesome?  (that is, frew${cool}frew has frew surrounding all the variables, not just first and last    
+setopt RMSTARSILENT   
+setopt SHARE_HISTORY          # Killer: share history between multiple shells   
+setopt ZLE                    # use magic (this is default, but it can't hurt!)   
+unsetopt AUTO_CD              # why would you type 'cd dir' if you could just type 'dir'?   
+unsetopt CORRECT_ALL    
+unsetopt CORRECT              # Spell check commands!  (Sometimes annoying)   
+unsetopt HIST_IGNORE_SPACE    # If a line starts with a space, don't save it.   
+unsetopt RM_STAR_WAIT         # 10 second wait if you do something that will delete everything.  I wish I'd had this before...    
+
+#{{{{ KEY BINDINGS 
+setopt VI   
+bindkey -M viins \\C-R history-incremental-search-backward		
+bindkey -M vicmd \\C-R history-incremental-search-backward		
+bindkey "" backward-delete-word		
+bindkey "OH" beginning-of-line		
+bindkey "OF" end-of-line		
+bindkey "[5~" history-beginning-search-backward		
+bindkey "[6~" history-beginning-search-forward		
+bindkey "" beginning-of-line		
+bindkey "" end-of-line		
+bindkey "[3~" delete-char		
+#}}}}
+
+#}}}    
+    
+autoload run-help   
+HELPDIR=~/zsh_help    
+LS_OPTIONS='-G'   
+    
+#{{{ Globals...   
+alias -g G="| grep"   
+alias -g L="| less"   
+alias -g H="history 1"    
+alias -g Cf="| cut -f "   
+alias -g Cb="| cut -b "   
+alias -g CF="| cut -f 4 -d ' ' | tr -d '[]'"    
+#}}}    
+ 
+#{{{ Other alias   
+alias fa='find . -iname "*"'    
+alias fd='find . -type d -iname "*"'    
+alias ff='find . -type f -iname "*"'    
+alias backend='cd ~/go/src/github.com/MapCaseGmbH/rails_backend/'   
+alias template='cd ~/go/src/github.com/MapCaseGmbH/rails_template_api_application/'   
+alias scratch='cd ~/go/src/github.com/MapCaseGmbH/mapcase-team/sands_thoughts/'   
+alias beontrack='cd ~/github.com/MapCaseGmbH/beontrack/'    
+alias pffp='cd ~/github.com/sillyfellow/pffp'   
+alias mmutt='mutt -f ~/Mail/sandeep.sadanandan@mapcase.de/INBOX'    
+alias gomapcase='cd ~/go/src/github.com/MapCaseGmbH/'   
+alias goandroid='cd ~/go/src/github.com/MapCaseGmbH/maptox_android'   
+alias goios='cd ~/go/src/github.com/MapCaseGmbH/maptox_ios'   
+alias gomctools='cd ~/go/src/github.com/MapCaseGmbH/tool-collection'    
+alias gomcops='cd ~/go/src/github.com/MapCaseGmbH/ops'    
+alias gopro='mapcase ssh into production -l maptosnow'    
+alias gosta='mapcase ssh into staging -l maptosnow'   
+alias mclist='mapcase instances list'   
+alias gdiff='git difftool --extcmd=diff'    
+alias glog='git log --pretty=format:"%h %s" --graph --oneline'    
+alias gst='git status'    
+alias gad='git add .'   
+alias youtubemp3='youtube-dl --prefer-ffmpeg --extract-audio --audio-format mp3 '   
+unalias rm    
+unalias cp    
+#}}}
+   
+export PYTHONSTARTUP=~/.pythonrc.py   
+    
+# pgrep emacs || emacs --daemon   #     
+#export ALTERNATE_EDITOR=""   
+#export EDITOR="emacsclient -t"                   # $EDITOR should open in terminal    
+#export VISUAL="emacsclient -c -a emacs"          # $VISUAL opens in GUI with non-daemon as alternate    
+#alias emax="emacsclient -t"                      # used to be "emacs -nw"    
+#alias semac="sudo emacsclient -t"                # used to be "sudo emacs -nw"   
+#alias emacsc="emacsclient -c -a emacs"           # new - opens the GUI with alternate non-daemon   
+    
+ 
+#{{{ HISTORY BUSINESS    
+HISTFILE=~/.history   # Where it gets saved   
+SAVEHIST=10000        # Remember about a years worth of history (AWESOME)   
+HISTSIZE=10000    
+#}}}
+    
+#{{{ SOURCE BUSINESS
+source ~/.aws_secrets.env   
+source ~/bin/ccd    
+source ~/bin/energis.sh     
+#}}}
+
+#{{{ PATH BUSINESS 
 export PSQLINST=/Applications/Postgres.app/Contents/Versions/9.5/bin
-export GOPATH=$HOME/go 
-
 export PATH=$HOME/bin:$GOPATH/bin:$PATH:$PSQLINST
-source /Users/sands/.rvm/scripts/rvm 
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"    
+export PATH=$HOME/bin:$PATH   
+export GOROOT=/usr/local/go   
+export PATH=$GOROOT/bin:$PATH   
+export GOPATH=$HOME/go    
+export PATH=$GOPATH/bin:$PATH   
+ 
+#{{{ EXECUTE HERE   
+cd ~/.ssh && eval `ssh-agent -s`; ssh-add && eval `ssh-agent -s`; ssh-add mapcase_default.pem && cd -   
+sh ~/bin/sigmaker.sh    
+#}}}
 
-source ~/bin/energis.sh
+source /Users/sands/.rvm/scripts/rvm 
+rvm use ruby-2.2.2
