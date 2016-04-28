@@ -145,6 +145,7 @@ export PATH=$GOPATH/bin:$PATH
  
 #{{{ EXECUTE HERE   
 cd ~/.ssh && eval `ssh-agent -s`; ssh-add && eval `ssh-agent -s`; ssh-add mapcase_default.pem && cd -   
+ssh-add ~/.ssh/id_rsa
 sh ~/bin/sigmaker.sh    
 #}}}
 
