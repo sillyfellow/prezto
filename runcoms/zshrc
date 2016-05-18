@@ -126,6 +126,12 @@ HISTFILE=~/.history   # Where it gets saved
 SAVEHIST=10000        # Remember about a years worth of history (AWESOME)   
 HISTSIZE=10000    
 #}}}
+
+#{{{ EXECUTE HERE   
+ssh-add ~/.ssh/id_rsa                       1&> /dev/null     
+ssh-add ~/.ssh/mapcase_default.pem          1&> /dev/null     
+ssh-add ~/.ssh/sands_base_model_keypair.pem 1&> /dev/null 
+#}}}
     
 #{{{ SOURCE BUSINESS
 source ~/.aws_secrets.env   
@@ -142,12 +148,11 @@ export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH   
 export GOPATH=$HOME/go    
 export PATH=$GOPATH/bin:$PATH   
- 
+export PATH=$HOME/.rvm/bin:$PATH   
+
+source $HOME/.rvm/scripts/rvm
+rvm use 2.2.2
+
 #{{{ EXECUTE HERE   
-cd ~/.ssh && eval `ssh-agent -s`; ssh-add && eval `ssh-agent -s`; ssh-add mapcase_default.pem && cd -   
-ssh-add ~/.ssh/id_rsa
 sh ~/bin/sigmaker.sh    
 #}}}
-
-source /Users/sands/.rvm/scripts/rvm 
-rvm use ruby-2.2.2
