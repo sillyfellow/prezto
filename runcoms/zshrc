@@ -106,19 +106,20 @@ alias glog='git log --pretty=format:"%h %s" --graph --oneline'
 alias gst='git status'    
 alias gad='git add .'   
 alias youtubemp3='youtube-dl --prefer-ffmpeg --extract-audio --audio-format mp3 '   
+alias reply='cd /Users/sands/go/src/gitlab/reply' 
+alias kotai='cd /Users/sands/go/src/github.com/kotaicode' 
+alias silly='cd /Users/sands/go/src/github.com/sillyfellow' 
 unalias rm    
 unalias cp    
 #}}}
    
 export PYTHONSTARTUP=~/.pythonrc.py   
     
-# pgrep emacs || emacs --daemon   #     
-#export ALTERNATE_EDITOR=""   
-#export EDITOR="emacsclient -t"                   # $EDITOR should open in terminal    
-#export VISUAL="emacsclient -c -a emacs"          # $VISUAL opens in GUI with non-daemon as alternate    
-#alias emax="emacsclient -t"                      # used to be "emacs -nw"    
-#alias semac="sudo emacsclient -t"                # used to be "sudo emacs -nw"   
-#alias emacsc="emacsclient -c -a emacs"           # new - opens the GUI with alternate non-daemon   
+pgrep emacs || emacs --daemon
+
+alias emax="emacsclient -t"                      # used to be "emacs -nw"
+alias semax="sudo emacsclient -t"                # used to be "sudo emacs -nw"
+alias emaxsc="emacsclient -c -a emacs"           # new - opens the GUI with alternate non-daemon
     
  
 #{{{ HISTORY BUSINESS    
@@ -154,5 +155,15 @@ source $HOME/.rvm/scripts/rvm
 rvm use 2.2.2
 
 #{{{ EXECUTE HERE   
+( 
+  cd ~/.ssh
+  eval `ssh-agent -s`
+  ssh-add mapcase_default.pem
+  ssh-add id_rsa
+  ssh-add sands_another_key_pair.pem
+  cd -   
+)
 sh ~/bin/sigmaker.sh    
 #}}}
+
+source /Users/sands/.rvm/scripts/rvm 
