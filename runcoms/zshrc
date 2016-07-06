@@ -106,9 +106,10 @@ alias glog='git log --pretty=format:"%h %s" --graph --oneline'
 alias gst='git status'    
 alias gad='git add .'   
 alias youtubemp3='youtube-dl --prefer-ffmpeg --extract-audio --audio-format mp3 '   
-alias reply='cd /Users/sands/go/src/gitlab/reply' 
-alias kotai='cd /Users/sands/go/src/github.com/kotaicode' 
-alias silly='cd /Users/sands/go/src/github.com/sillyfellow' 
+alias reply='cd $HOME/go/src/gitlab/reply' 
+alias kotai='cd $HOME/go/src/github.com/kotaicode' 
+alias silly='cd $HOME/go/src/github.com/sillyfellow' 
+alias keyline='cd $HOME/go/src/github.com/crispymtn/keyline-gattaca' 
 unalias rm    
 unalias cp    
 #}}}
@@ -152,7 +153,6 @@ export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.rvm/bin:$PATH   
 
 source $HOME/.rvm/scripts/rvm
-rvm use 2.2.2
 
 #{{{ EXECUTE HERE   
 ( 
@@ -165,5 +165,3 @@ rvm use 2.2.2
 )
 sh ~/bin/sigmaker.sh    
 #}}}
-
-source /Users/sands/.rvm/scripts/rvm 
