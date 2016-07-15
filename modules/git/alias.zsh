@@ -78,7 +78,7 @@ alias gdi='git status --porcelain --short --ignored | sed -n "s/^!! //p"'
 alias gf='git fetch'
 alias gfc='git clone'
 alias gfm='git pull'
-alias gfr='git pull --rebase'
+alias gpr='git pull --rebase'
 
 # Grep (g)
 alias gg='git grep'
