@@ -20,7 +20,7 @@ PLATFORM='UNKNOWN'
 UNAMESTR=`uname`
 if [[ "$UNAMESTR" == 'Linux'  ]]; then
   PLATFORM='LINUX'
-elif [[ "$UNAMESTR" == 'darwin'  ]]; then
+elif [[ "$UNAMESTR" == 'Darwin'  ]]; then
   PLATFORM='OSX'
 fi
 
@@ -164,6 +164,8 @@ export PATH=$NODEROOT/bin:$PATH
 if [[ "$PLATFORM" == 'OSX'  ]]; then
   export PSQLINST=/Applications/Postgres.app/Contents/Versions/9.5/bin
   export PATH=$HOME/bin:$GOPATH/bin:$PATH:$PSQLINST
+  export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+  alias vim='mvim -v'
 fi
 
 # Python
