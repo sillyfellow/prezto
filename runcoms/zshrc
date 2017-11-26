@@ -170,7 +170,7 @@ if [[ "$PLATFORM" == 'OSX'  ]]; then
   export PSQLINST=/Applications/Postgres.app/Contents/Versions/9.5/bin
   export PATH=$HOME/bin:$GOPATH/bin:$PATH:$PSQLINST
   export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-  alias vim='mvim -v'
+" alias vim='mvim -v' """
 else
   setxkbmap -option compose:ralt|| echo "Couldn't set the compose key"
 fi
