@@ -130,6 +130,7 @@ HISTSIZE=10000
 source ~/.aws_secrets.env
 source ~/bin/ccd
 source ~/bin/energis.sh
+source ~/bin/metro.sh
 source ~/bin/kotai.sh
 source ~/bin/utils
 
@@ -149,10 +150,14 @@ if [ -n $(which Rscript)  ]; then
   export PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"`
 fi
 
+# Android
+if [ -d "/opt/android-studio/" ] ; then
+  export PATH="$PATH:/opt/android-studio/bin"
+fi
+
 
 # Go
-export GOROOT=/usr/local/go
-export PATH=$GOROOT/bin:$PATH
+export PATH=/usr/local/go/bin:$PATH
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
@@ -166,10 +171,20 @@ if [[ "$PLATFORM" == 'OSX'  ]]; then
   export PATH=$HOME/bin:$GOPATH/bin:$PATH:$PSQLINST
   export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
   alias vim='mvim -v'
+else
+  setxkbmap -option compose:ralt|| echo "Couldn't set the compose key"
 fi
 
 # Python
 export PYTHONSTARTUP=~/.pythonrc.py
+
+
+# Rvm, Ruby
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+if [ -d "$HOME/.rvm" ] ; then
+  export PATH="$PATH:$HOME/.rvm/bin"
+  source /home/sands/.rvm/scripts/rvm
+fi
 
 # Rust
 if [ -d "$HOME/.cargo/bin" ] ; then
