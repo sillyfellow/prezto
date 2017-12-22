@@ -90,6 +90,7 @@ alias -g CF="| cut -f 4 -d ' ' | tr -d '[]'"
 
 
 # Other alias
+alias ls='ls --color=tty'
 alias fa='find . -iname "*"'
 alias fd='find . -type d -iname "*"'
 alias ff='find . -type f -iname "*"'
@@ -106,6 +107,7 @@ alias keyline='cd $HOME/go/src/github.com/crispymtn/keyline-gattaca'
 alias maersk='cd $HOME/go/src/bitbucket.org/opremic.solutions:7999/maer/simulatorc'
 alias iata='cd $HOME/go/src/bitbucket.org/opremic.solutions:7999/iata/simulator'
 alias baub='cd $HOME/go/src/github.com/tlubinski/ibt-backend'
+alias bauw='cd $HOME/go/src/github.com/tlubinski/ibt-backend'
 alias baup='cd $HOME/go/src/github.com/tlubinski/ibt-ipad'
 alias clinks='cd $HOME/go/src/bitbucket.org/creditlinks/app-creditlinks/'
 
@@ -170,7 +172,12 @@ if [[ "$PLATFORM" == 'OSX'  ]]; then
   export PSQLINST=/Applications/Postgres.app/Contents/Versions/9.5/bin
   export PATH=$HOME/bin:$GOPATH/bin:$PATH:$PSQLINST
   export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-" alias vim='mvim -v' """
+
+  # update paths for gnu coreutils
+  export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+  export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+  # alias vim='mvim -v' """
 else
   setxkbmap -option compose:ralt|| echo "Couldn't set the compose key"
 fi
@@ -183,7 +190,7 @@ export PYTHONSTARTUP=~/.pythonrc.py
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 if [ -d "$HOME/.rvm" ] ; then
   export PATH="$PATH:$HOME/.rvm/bin"
-  source /home/sands/.rvm/scripts/rvm
+  source $HOME/.rvm/scripts/rvm
 fi
 
 # Rust
