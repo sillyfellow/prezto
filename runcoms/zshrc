@@ -75,6 +75,7 @@ bindkey "[6~" history-beginning-search-forward
 bindkey "" beginning-of-line
 bindkey "" end-of-line
 bindkey "[3~" delete-char
+bindkey "" backward-kill-line
 
 autoload run-help
 HELPDIR=~/zsh_help
@@ -107,7 +108,7 @@ alias keyline='cd $HOME/go/src/github.com/crispymtn/keyline-gattaca'
 alias maersk='cd $HOME/go/src/bitbucket.org/opremic.solutions:7999/maer/simulatorc'
 alias iata='cd $HOME/go/src/bitbucket.org/opremic.solutions:7999/iata/simulator'
 alias baub='cd $HOME/go/src/github.com/tlubinski/ibt-backend'
-alias bauw='cd $HOME/go/src/github.com/tlubinski/ibt-backend'
+alias bauw='cd $HOME/go/src/github.com/tlubinski/ibt-webapp'
 alias baup='cd $HOME/go/src/github.com/tlubinski/ibt-ipad'
 alias clinks='cd $HOME/go/src/bitbucket.org/creditlinks/app-creditlinks/'
 
@@ -184,6 +185,7 @@ fi
 
 # Python
 export PYTHONSTARTUP=~/.pythonrc.py
+source /usr/local/bin/virtualenvwrapper.sh
 
 
 # Rvm, Ruby
@@ -206,6 +208,11 @@ if [ -d "$HOME/bin" ] ; then
   sh ~/bin/sigmaker.sh
 fi
 
+
+# set PATH to user macvim
+if [ -d "/Applications/MacVim.app/Contents/bin" ] ; then
+  PATH="/Applications/MacVim.app/Contents/bin:$PATH"
+fi
 
 # Mark it loaded
 export ZSHLOADED=YES
