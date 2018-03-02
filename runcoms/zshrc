@@ -24,8 +24,6 @@ elif [[ "$UNAMESTR" == 'Darwin'  ]]; then
   PLATFORM='OSX'
 fi
 
-
-
 # Options
 export EDITOR="vim"           # only fools wouldn't do this ;-)
 DISABLE_CORRECTION="true"
@@ -89,7 +87,6 @@ alias -g Cf="| cut -f "
 alias -g Cb="| cut -b "
 alias -g CF="| cut -f 4 -d ' ' | tr -d '[]'"
 
-
 # Other alias
 alias ls='ls --color=tty'
 alias fa='find . -iname "*"'
@@ -102,27 +99,31 @@ alias gad='git add .'
 alias youtubemp3='youtube-dl --prefer-ffmpeg --extract-audio --audio-format mp3 '
 
 # Jump commands
-alias kotai='cd $HOME/go/src/github.com/kotaicode'
-alias silly='cd $HOME/go/src/github.com/sillyfellow'
-alias keyline='cd $HOME/go/src/github.com/crispymtn/keyline-gattaca'
-alias maersk='cd $HOME/go/src/bitbucket.org/opremic.solutions:7999/maer/simulatorc'
-alias iata='cd $HOME/go/src/bitbucket.org/opremic.solutions:7999/iata/simulator'
-alias baub='cd $HOME/go/src/github.com/tlubinski/ibt-backend'
-alias bauw='cd $HOME/go/src/github.com/tlubinski/ibt-webapp'
-alias baup='cd $HOME/go/src/github.com/tlubinski/ibt-ipad'
-alias clinks='cd $HOME/go/src/bitbucket.org/creditlinks/app-creditlinks/'
+#alias kotai='cd $HOME/go/src/github.com/kotaicode'
+#alias silly='cd $HOME/go/src/github.com/sillyfellow'
+#alias keyline='cd $HOME/go/src/github.com/crispymtn/keyline-gattaca'
+#alias maersk='cd $HOME/go/src/bitbucket.org/opremic.solutions:7999/maer/simulatorc'
+#alias iata='cd $HOME/go/src/bitbucket.org/opremic.solutions:7999/iata/simulator'
+#alias baub='cd $HOME/go/src/github.com/tlubinski/ibt-backend'
+#alias bauw='cd $HOME/go/src/github.com/tlubinski/ibt-webapp'
+#alias baup='cd $HOME/go/src/github.com/tlubinski/ibt-ipad'
+#alias clinks='cd $HOME/go/src/bitbucket.org/creditlinks/app-creditlinks/'
+
+# ZPrezto Jumps
+alias j="jump"
+alias b="bookmark"
+alias d="deletemark"
+alias s="showmarks"
 
 # Fiz zsh extra checks. I know what I'm doing
 unalias rm
 unalias cp
-
 
 # Run emacs daemon
 pgrep emacs || emacs --daemon
 alias emax="emacsclient -t"                      # used to be "emacs -nw"
 alias semax="sudo emacsclient -t"                # used to be "sudo emacs -nw"
 alias emaxsc="emacsclient -c -a emacs"           # new - opens the GUI with alternate non-daemon
-
 
 # HISTORY BUSINESS
 HISTFILE=~/.history   # Where it gets saved
@@ -132,9 +133,9 @@ HISTSIZE=10000
 # Custom stuff
 source ~/.aws_secrets.env
 source ~/bin/ccd
-source ~/bin/energis.sh
-source ~/bin/metro.sh
-source ~/bin/kotai.sh
+#source ~/bin/energis.sh
+#source ~/bin/metro.sh
+#source ~/bin/kotai.sh
 source ~/bin/utils
 
 # Load keys
@@ -142,7 +143,6 @@ eval `ssh-agent -s`
 ssh-add ~/.ssh/id_rsa
 ssh-add ~/.ssh/energis_ops_key
 ssh-add ~/.ssh/repricon_key
-
 
 # Linguistics and Paths
 
@@ -157,7 +157,6 @@ fi
 if [ -d "/opt/android-studio/" ] ; then
   export PATH="$PATH:/opt/android-studio/bin"
 fi
-
 
 # Go
 export PATH=/usr/local/go/bin:$PATH
@@ -187,19 +186,15 @@ fi
 export PYTHONSTARTUP=~/.pythonrc.py
 source /usr/local/bin/virtualenvwrapper.sh
 
-
 # Rvm, Ruby
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 if [ -d "$HOME/.rvm" ] ; then
-  export PATH="$PATH:$HOME/.rvm/bin"
-  source $HOME/.rvm/scripts/rvm
 fi
 
 # Rust
 if [ -d "$HOME/.cargo/bin" ] ; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
-
 
 # Happy happy happy, and own stuff
 # set PATH so it includes user's private bin if it exists
@@ -208,11 +203,18 @@ if [ -d "$HOME/bin" ] ; then
   sh ~/bin/sigmaker.sh
 fi
 
-
 # set PATH to user macvim
 if [ -d "/Applications/MacVim.app/Contents/bin" ] ; then
   PATH="/Applications/MacVim.app/Contents/bin:$PATH"
 fi
 
+# set PATH to user maxTex
+if [ -d "/Library/TeX/texbin" ] ; then
+  export PATH="/Library/TeX/texbin":$PATH
+fi
+
 # Mark it loaded
 export ZSHLOADED=YES
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
