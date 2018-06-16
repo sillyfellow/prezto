@@ -80,6 +80,8 @@ HELPDIR=~/zsh_help
 LS_OPTIONS='-G'
 
 # Global alias(es)
+alias -g J="| jq '.'"
+alias -g P="| pbcopy"
 alias -g G="| grep"
 alias -g L="| less"
 alias -g H="history 1"
@@ -97,6 +99,8 @@ alias glog='git log --pretty=format:"%h %s" --graph --oneline'
 alias gst='git status'
 alias gad='git add .'
 alias youtubemp3='youtube-dl --prefer-ffmpeg --extract-audio --audio-format mp3 '
+alias md='nocorrect mkdir -p'
+alias rf='rm -rf'
 
 # Jump commands
 #alias kotai='cd $HOME/go/src/github.com/kotaicode'
@@ -125,6 +129,8 @@ alias emax="emacsclient -t"                      # used to be "emacs -nw"
 alias semax="sudo emacsclient -t"                # used to be "sudo emacs -nw"
 alias emaxsc="emacsclient -c -a emacs"           # new - opens the GUI with alternate non-daemon
 
+alias -s go='vim -O'
+
 # HISTORY BUSINESS
 HISTFILE=~/.history   # Where it gets saved
 SAVEHIST=10000        # Remember about a years worth of history (AWESOME)
@@ -143,6 +149,7 @@ eval `ssh-agent -s`
 ssh-add ~/.ssh/id_rsa
 ssh-add ~/.ssh/energis_ops_key
 ssh-add ~/.ssh/repricon_key
+ssh-add ~/.ssh/airtango.private_key
 
 # Linguistics and Paths
 
@@ -169,7 +176,7 @@ export PATH=$NODEROOT/bin:$PATH
 
 # SQL
 if [[ "$PLATFORM" == 'OSX'  ]]; then
-  export PSQLINST=/Applications/Postgres.app/Contents/Versions/9.5/bin
+  export PSQLINST=/Applications/Postgres.app/Contents/Versions/10/bin
   export PATH=$HOME/bin:$GOPATH/bin:$PATH:$PSQLINST
   export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 
@@ -177,7 +184,7 @@ if [[ "$PLATFORM" == 'OSX'  ]]; then
   export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
   export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
-  # alias vim='mvim -v' """
+  # alias vim='mvim -v'
 else
   setxkbmap -option compose:ralt|| echo "Couldn't set the compose key"
 fi
@@ -217,4 +224,8 @@ fi
 export ZSHLOADED=YES
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/.rvm/bin:."
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
