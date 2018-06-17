@@ -25,13 +25,13 @@ elif [[ "$UNAMESTR" == 'Darwin'  ]]; then
 fi
 
 # Options
-export EDITOR="vim"           # only fools wouldn't do this ;-)
+export EDITOR="vim"           # only fools would not do this ;-)
 DISABLE_CORRECTION="true"
 
-setopt APPEND_HISTORY         # Don't overwrite, append!
+setopt APPEND_HISTORY         # Do not overwrite, append!
 setopt AUTO_NAME_DIRS         # This will use named dirs when possible
 setopt AUTO_PUSHD             # This makes cd=pushd
-setopt EXTENDED_GLOB          # I don't know why I never set this before.
+setopt EXTENDED_GLOB          # I do not know why I never set this before.
 setopt EXTENDED_HISTORY       # Save the time and how long a command ran
 setopt GLOB_COMPLETE          # If we have a glob this will expand it
 setopt HIST_EXPIRE_DUPS_FIRST
@@ -54,12 +54,12 @@ setopt PUSHD_MINUS
 setopt RC_EXPAND_PARAM        # hows about arrays be awesome?  (that is, frew${cool}frew has frew surrounding all the variables, not just first and last
 setopt RMSTARSILENT
 setopt SHARE_HISTORY          # Killer: share history between multiple shells
-setopt ZLE                    # use magic (this is default, but it can't hurt!)
+setopt ZLE                    # use magic (this is default, but it ca not hurt!)
 unsetopt AUTO_CD              # why would you type 'cd dir' if you could just type 'dir'?
 unsetopt CORRECT_ALL
 unsetopt CORRECT              # Spell check commands!  (Sometimes annoying)
-unsetopt HIST_IGNORE_SPACE    # If a line starts with a space, don't save it.
-unsetopt RM_STAR_WAIT         # 10 second wait if you do something that will delete everything.  I wish I'd had this before...
+unsetopt HIST_IGNORE_SPACE    # If a line starts with a space, do not save it.
+unsetopt RM_STAR_WAIT         # 10 second wait if you do something that will delete everything.  I wish I had had this before...
 
 # KEY BINDINGS
 #setopt VI
@@ -84,6 +84,7 @@ alias -g J="| jq '.'"
 alias -g P="| pbcopy"
 alias -g G="| grep"
 alias -g L="| less"
+alias -g C="| wc -l"
 alias -g H="history 1"
 alias -g Cf="| cut -f "
 alias -g Cb="| cut -b "
@@ -101,17 +102,7 @@ alias gad='git add .'
 alias youtubemp3='youtube-dl --prefer-ffmpeg --extract-audio --audio-format mp3 '
 alias md='nocorrect mkdir -p'
 alias rf='rm -rf'
-
-# Jump commands
-#alias kotai='cd $HOME/go/src/github.com/kotaicode'
-#alias silly='cd $HOME/go/src/github.com/sillyfellow'
-#alias keyline='cd $HOME/go/src/github.com/crispymtn/keyline-gattaca'
-#alias maersk='cd $HOME/go/src/bitbucket.org/opremic.solutions:7999/maer/simulatorc'
-#alias iata='cd $HOME/go/src/bitbucket.org/opremic.solutions:7999/iata/simulator'
-#alias baub='cd $HOME/go/src/github.com/tlubinski/ibt-backend'
-#alias bauw='cd $HOME/go/src/github.com/tlubinski/ibt-webapp'
-#alias baup='cd $HOME/go/src/github.com/tlubinski/ibt-ipad'
-#alias clinks='cd $HOME/go/src/bitbucket.org/creditlinks/app-creditlinks/'
+alias reload-zsh='source ~/.zshrc'
 
 # ZPrezto Jumps
 alias j="jump"
@@ -120,8 +111,8 @@ alias d="deletemark"
 alias s="showmarks"
 
 # Fiz zsh extra checks. I know what I'm doing
-unalias rm
-unalias cp
+alias rm && unalias rm
+alias cp && unalias cp
 
 # Run emacs daemon
 pgrep emacs || emacs --daemon
@@ -130,18 +121,21 @@ alias semax="sudo emacsclient -t"                # used to be "sudo emacs -nw"
 alias emaxsc="emacsclient -c -a emacs"           # new - opens the GUI with alternate non-daemon
 
 alias -s go='vim -O'
+alias -s rb='vim -O'
+alias -s js='vim -O'
+alias -s html='vim -O'
+alias -s tex='vim -O'
+alias -s cpp='vim -O'
+alias -s txt='vim -O'
 
 # HISTORY BUSINESS
 HISTFILE=~/.history   # Where it gets saved
-SAVEHIST=10000        # Remember about a years worth of history (AWESOME)
-HISTSIZE=10000
+SAVEHIST=100000       # Remember about a years worth of history (AWESOME)
+HISTSIZE=100000
 
 # Custom stuff
 source ~/.aws_secrets.env
 source ~/bin/ccd
-#source ~/bin/energis.sh
-#source ~/bin/metro.sh
-#source ~/bin/kotai.sh
 source ~/bin/utils
 
 # Load keys
@@ -171,11 +165,29 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
 # JS (Node)
-export NODEROOT=/usr/local/node
-export PATH=$NODEROOT/bin:$PATH
+if [ -d "$HOME/.nvm" ] ; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 
-# SQL
+# Python
+export PYTHONSTARTUP=~/.pythonrc.py
+
+# Rust
+if [ -d "$HOME/.cargo/bin" ] ; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+  PATH="$HOME/bin:$PATH"
+  sh ~/bin/sigmaker.sh
+fi
+
+# Platform specifics
 if [[ "$PLATFORM" == 'OSX'  ]]; then
+  # SQL
   export PSQLINST=/Applications/Postgres.app/Contents/Versions/10/bin
   export PATH=$HOME/bin:$GOPATH/bin:$PATH:$PSQLINST
   export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
@@ -184,48 +196,24 @@ if [[ "$PLATFORM" == 'OSX'  ]]; then
   export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
   export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
-  # alias vim='mvim -v'
-else
-  setxkbmap -option compose:ralt|| echo "Couldn't set the compose key"
-fi
+  # set PATH to user macvim
+  if [ -d "/Applications/MacVim.app/Contents/bin" ] ; then
+    PATH="/Applications/MacVim.app/Contents/bin:$PATH"
+  fi
 
-# Python
-export PYTHONSTARTUP=~/.pythonrc.py
-source /usr/local/bin/virtualenvwrapper.sh
+  # set PATH to user maxTex
+  if [ -d "/Library/TeX/texbin" ] ; then
+    export PATH="/Library/TeX/texbin":$PATH
+  fi
+else
+  setxkbmap -option compose:ralt || echo "Couldn't set the compose key"
+fi
 
 # Rvm, Ruby
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 if [ -d "$HOME/.rvm" ] ; then
-fi
-
-# Rust
-if [ -d "$HOME/.cargo/bin" ] ; then
-  export PATH="$HOME/.cargo/bin:$PATH"
-fi
-
-# Happy happy happy, and own stuff
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-  PATH="$HOME/bin:$PATH"
-  sh ~/bin/sigmaker.sh
-fi
-
-# set PATH to user macvim
-if [ -d "/Applications/MacVim.app/Contents/bin" ] ; then
-  PATH="/Applications/MacVim.app/Contents/bin:$PATH"
-fi
-
-# set PATH to user maxTex
-if [ -d "/Library/TeX/texbin" ] ; then
-  export PATH="/Library/TeX/texbin":$PATH
+  export PATH="$PATH:$HOME/.rvm/bin"
 fi
 
 # Mark it loaded
 export ZSHLOADED=YES
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin:."
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
