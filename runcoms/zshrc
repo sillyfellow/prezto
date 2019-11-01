@@ -159,7 +159,7 @@ export FZF_DEFAULT_COMMAND='
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-sh -x /home/sillyfellow/.config/i3/natural_scrolling.sh
+sh /home/sillyfellow/.config/i3/natural_scrolling.sh
 
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
