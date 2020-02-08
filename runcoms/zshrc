@@ -87,10 +87,12 @@ alias -g L="| less"
 alias -g HH="| head"
 alias -g T="| tail"
 alias -g C="| wc -l"
-alias -g HG="history 1 | grep"
+alias -g HG="history | grep"
 alias -g Cf="| cut -f "
 alias -g Cb="| cut -b "
 alias -g CF="| cut -f 4 -d ' ' | tr -d '[]'"
+alias -g S="| sort"
+alias -g SN="| sort -n"
 
 # Other alias
 alias ls='ls --color=tty'
@@ -118,12 +120,14 @@ alias rm && unalias rm
 alias cp && unalias cp
 
 # Run emacs daemon
+#alias vim='emacs -nw'
+
 pgrep emacs || emacs --daemon
-alias emacs='emacs -nw'
-alias emax="emacsclient -nw"               # used to be "emacs -nw"
-alias semax="sudo emacsclient -nw"         # used to be "sudo emacs -nw"
-alias emaxsc="emacsclient -c -a emacs"     # new - opens the GUI with alternate non-daemon
-alias vim='emacsclient -nw'
+alias emax='emacsclient -nw'               # used to be 'emacs -nw'
+alias semax='sudo emacsclient -nw'         # used to be 'sudo emacs -nw'
+alias emaxsc='emacsclient -c -a emacs'     # new - opens the GUI with alternate non-daemon
+alias emacs='emacsclient -nw'
+alias org='emacsclient -nw ~/org/root.org'
 
 alias -s go='vim -O'
 alias -s rb='vim -O'
@@ -132,6 +136,9 @@ alias -s html='vim -O'
 alias -s tex='vim -O'
 alias -s cpp='vim -O'
 alias -s txt='vim -O'
+alias v='vim -O'
+alias vi='vim -O'
+alias vim='vim -O'
 
 # HISTORY BUSINESS
 HISTFILE=~/.history   # Where it gets saved
@@ -157,7 +164,6 @@ export FZF_DEFAULT_COMMAND='
    find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
       sed s/^..//) 2> /dev/null'
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 sh /home/sillyfellow/.config/i3/natural_scrolling.sh
 
@@ -166,7 +172,7 @@ export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
 setxkbmap -option compose:ralt || echo "Couldn't set the compose key"
-# source ~/.aliases
+source ~/.aliases
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 if command -v pyenv 1>/dev/null 2>&1; then
@@ -175,3 +181,5 @@ fi
 
 # Mark it loaded
 export ZSHLOADED=YES
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
